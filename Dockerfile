@@ -1,7 +1,7 @@
 FROM fedora:23
 MAINTAINER gustavonalle 
 
-ENV SPARK_VERSION 1.4.1
+ENV SPARK_VERSION 1.5.2
 ENV SPARK_HADOOP_VERSION 2.6 
 
 RUN  (dnf -y install words procps hostname iproute tar unzip supervisor java-1.8.0-openjdk-devel; \
