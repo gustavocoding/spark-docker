@@ -1,6 +1,8 @@
 FROM fedora:23
 MAINTAINER gustavonalle 
 
+RUN echo "LANG=en_GB.UTF-8" > /etc/locale.conf
+
 ENV SPARK_VERSION 1.5.2
 ENV SPARK_HADOOP_VERSION 2.6 
 
@@ -16,4 +18,5 @@ ADD java_home.sh /etc/profile.d/java_home.sh
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 EXPOSE 5555 8080 7077 9080 9081 57600 7600 8181 9990 4040 55200 45700
+ENV LANG en_US.UTF-8
 CMD ["/usr/bin/supervisord","-c","/etc/supervisor/conf.d/supervisord.conf"]
