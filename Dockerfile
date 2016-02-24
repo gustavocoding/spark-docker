@@ -1,19 +1,22 @@
-FROM fedora:23
-MAINTAINER gustavonalle 
+FROM alpine:3.3
+
+MAINTAINER gustavonalle
 
 RUN echo "LANG=en_GB.UTF-8" > /etc/locale.conf
 
-ENV SPARK_VERSION 1.5.2
+ENV SPARK_VERSION 1.6.0
 ENV SPARK_HADOOP_VERSION 2.6 
 
-RUN  (dnf -y install words procps hostname iproute tar unzip supervisor java-1.8.0-openjdk-devel; \
-     dnf -y autoremove; \
-     dnf -y clean all;) 
+RUN echo "http://dl-4.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories \
+    && apk add --update \
+    curl openjdk8 openssh ruby bash cracklib-words supervisor procps \
+    && rm /var/cache/apk/*
 
 RUN curl "http://mirror.vorboss.net/apache/spark/spark-$SPARK_VERSION/spark-$SPARK_VERSION-bin-hadoop$SPARK_HADOOP_VERSION.tgz" | tar -C /usr/local/ -xz | ln -s /usr/local/spark-$SPARK_VERSION-bin-hadoop$SPARK_HADOOP_VERSION/ /usr/local/spark
 ADD start-spark.sh /usr/local/spark/
 
-ADD java_home.sh /etc/profile.d/java_home.sh
+ENV JAVA_HOME /usr/lib/jvm/default-jvm
+ENV PATH ${JAVA_HOME}/bin:${PATH}
 
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
