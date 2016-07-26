@@ -12,7 +12,7 @@ RUN echo "http://dl-4.alpinelinux.org/alpine/edge/community" >> /etc/apk/reposit
 ENV JAVA_HOME /usr/lib/jvm/default-jvm
 ENV PATH ${PATH}:${JAVA_HOME}/bin
 
-RUN git clone --branch branch-2.0 https://github.com/apache/spark.git /usr/local/spark-source \
+RUN git clone --branch v2.0.0 https://github.com/apache/spark.git /usr/local/spark-source \
     && cd /usr/local/spark-source \
     && dev/make-distribution.sh \
     && mkdir /usr/local/spark \
