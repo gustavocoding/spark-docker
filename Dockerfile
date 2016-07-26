@@ -11,7 +11,7 @@ RUN echo "http://dl-4.alpinelinux.org/alpine/edge/community" >> /etc/apk/reposit
 
 ENV JAVA_HOME /usr/lib/jvm/default-jvm
 ENV PATH ${PATH}:${JAVA_HOME}/bin
-ENV SPARK_VERSION 1.6.1
+ENV SPARK_VERSION 1.6.2
 
 RUN git clone --branch v$SPARK_VERSION --single-branch https://github.com/apache/spark.git /usr/local/spark-source \
     && cd /usr/local/spark-source \
