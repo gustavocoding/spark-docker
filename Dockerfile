@@ -16,7 +16,7 @@ ENV PATH ${PATH}:${JAVA_HOME}/bin
 RUN git clone --branch v2.0.0 https://github.com/apache/spark.git /usr/local/spark-source \
     && cd /usr/local/spark-source \
     && dev/change-scala-version.sh 2.10 \
-    && dev/make-distribution.sh -Dscala-210 \
+    && dev/make-distribution.sh -Dscala-2.10 \
     && mkdir /usr/local/spark \
     && cp -R /usr/local/spark-source/dist/* /usr/local/spark \
     && rm -Rf /usr/local/spark-source \
