@@ -1,10 +1,10 @@
-FROM alpine:3.3
+FROM alpine:3.5
 
 MAINTAINER gustavonalle
 
 RUN echo "LANG=en_GB.UTF-8" > /etc/locale.conf
 
-ENV SPARK_VERSION 2.0.0 
+ENV SPARK_VERSION 2.1.0
 ENV SPARK_HADOOP_VERSION 2.7
 
 RUN echo "http://dl-4.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories \
@@ -19,6 +19,8 @@ ENV JAVA_HOME /usr/lib/jvm/default-jvm
 ENV PATH ${JAVA_HOME}/bin:${PATH}
 
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+RUN sed -i 's/nohup --/nohup/g' /usr/local/spark/sbin/spark-daemon.sh
 
 EXPOSE 5555 8080 7077 9080 9081 57600 7600 8181 9990 4040 55200 45700
 ENV LANG en_US.UTF-8
