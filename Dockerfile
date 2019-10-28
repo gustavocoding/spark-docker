@@ -9,7 +9,7 @@ ENV SPARK_HADOOP_VERSION 2.7
 
 RUN echo "http://dl-4.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories \
     && apk add --update \
-    curl openjdk11-jdk openssh ruby bash cracklib-words supervisor procps \
+    curl openjdk8 openssh ruby bash cracklib-words supervisor procps \
     && rm /var/cache/apk/*
 
 RUN curl "http://mirror.vorboss.net/apache/spark/spark-$SPARK_VERSION/spark-$SPARK_VERSION-bin-hadoop$SPARK_HADOOP_VERSION.tgz" | tar -C /usr/local/ -xz | ln -s /usr/local/spark-$SPARK_VERSION-bin-hadoop$SPARK_HADOOP_VERSION/ /usr/local/spark
