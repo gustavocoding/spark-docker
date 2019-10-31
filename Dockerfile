@@ -12,7 +12,10 @@ RUN echo "http://dl-4.alpinelinux.org/alpine/edge/community" >> /etc/apk/reposit
     curl openjdk8 openssh ruby bash cracklib-words supervisor procps \
     && rm /var/cache/apk/*
 
-RUN curl "http://mirror.vorboss.net/apache/spark/spark-$SPARK_VERSION/spark-$SPARK_VERSION-bin-hadoop$SPARK_HADOOP_VERSION.tgz" | tar -C /usr/local/ -xz | ln -s /usr/local/spark-$SPARK_VERSION-bin-hadoop$SPARK_HADOOP_VERSION/ /usr/local/spark
+COPY dist/README.txt dist/spark*  /
+
+RUN [ -f /spark.tgz ] && tar -C /usr/local -xzvf /spark.tgz && ln -s /usr/local/spark-$SPARK_VERSION-bin-custom-spark/ /usr/local/spark && rm /spark.tgz || curl "http://mirror.vorboss.net/apache/spark/spark-$SPARK_VERSION/spark-$SPARK_VERSION-bin-hadoop$SPARK_HADOOP_VERSION.tgz" | tar -C /usr/local/ -xz | ln -s /usr/local/spark-$SPARK_VERSION-bin-hadoop$SPARK_HADOOP_VERSION/ /usr/local/spark
+
 ADD start-spark.sh /usr/local/spark/
 
 ENV JAVA_HOME /usr/lib/jvm/default-jvm
